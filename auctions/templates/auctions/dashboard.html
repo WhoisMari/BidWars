@@ -1,0 +1,109 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-12 messages">
+
+			{% if messages %}
+			{% for message in messages %}
+
+			<div class="alert alert-{{message.tags}}" role="alert">
+				{{ message }}
+			</div>
+					
+			{% endfor %}
+			{% endif %}
+
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-12 col-lg-7">
+			<span class="page-title">My Bids</span>
+			<div class="table-my-bids">
+				<table>
+					<thead>
+						<tr>
+							<th>Listing</th>
+							<th>Bid</th>
+							<th>Highest Bid</th>
+						</tr>
+					</thead>
+					<tbody>
+
+					{% if not bids %}
+					<tr><td colspan="3" class="text-center">You dind't place a bid yet.</td></tr>
+					{% endif %}
+
+					{% for bid in bids %}
+					<tr>
+						<td><a class="listing-link" href="{% url 'listing' bid.id %}">{{bid.title}}</a></td>
+						<td>
+							{{bid.user_latest_bid}}
+							{% if bid.closed %}
+							<span class="listing-closed">[closed]</span>
+
+								{% if bid.highestBid == bid.user_latest_bid %}<i class="fas fa-trophy"></i>{% endif %}
+									
+							{% else %}
+							<span class="listing-open">[open]</span>
+							{% endif %}
+						</td>
+
+						<td>{{bid.highestBid}}</td>
+					</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-12 col-lg-5">
+			<span class="page-title">My Listings</span>
+			<div class="table-my-listings">
+				<table>
+					<thead>
+						<tr>
+							<th>Listing</th>
+							<th>Status</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+					{% if not listings %}
+					<tr><td colspan="3" class="text-center">You don't have any listings yet.</td></tr>
+					{% endif %}
+
+					{% for listing in listings %}
+					<tr>
+						<td><a class="listing-link" href="{% url 'listing' listing.id %}">{{ listing.title }}</a></td>
+
+						<td>
+						{% if listing.closed %}
+							<span class="listing-closed">-- Closed --</span>
+						{% else %}
+							<div class="listing-actions">
+								<a class="listing-link" onclick="return confirm('Are you sure?');" href="{% url 'manage-listings' 'close' listing.id %}">Close</a>
+							</div>
+						{% endif %}
+						</td>
+
+						<td>
+							<div class="listing-actions">
+								<a onclick="return confirm('Are you sure?');" href="{% url 'manage-listings' 'delete' listing.id %}" title="Delete listing"><i class="fas fa-trash-alt"></i></a>
+								{% if listing.closed == 0 %}
+								
+								<a href="{% url 'manage-listings' 'update' listing.id %}" title="Edit listing"><i class="fas fa-edit"></i></a>
+								{% endif %}
+							</div>
+						</td>
+					</tr>
+					{% endfor %}				
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

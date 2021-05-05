@@ -1,0 +1,186 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="container fluid">
+
+	<div class="row">
+		<div class="col-12 messages">
+			{% if messages %}
+			{% for message in messages %}
+			<div class="alert alert-{{message.tags}}" role="alert">
+				{{ message }}
+			</div>
+			{% endfor %}
+			{% endif %}
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-12 col-lg-8">
+			<span class="page-title">Listing: {{ listing.title }}</span>
+
+			{% for category in listing.categories.all %}
+			<span class="badge rounded-pill bg-primary">{{ category }}</span>
+			{% endfor %}
+
+		</div>
+		<div class="col-12 col-lg-4">
+			<div class="is-owner">
+				{% if is_owner and listing.closed == 0 %}
+
+				<div class="listing-actions">
+					<a href="{% url 'manage-listings' 'update' listing.id %}" title="Edit listing"><i class="fas fa-edit"></i></a>
+					<a onclick="return confirm('Are you sure?');" href="{% url 'manage-listings' 'delete' listing.id %}" title="Delete listing"><i class="fas fa-trash-alt"></i></a>
+				</div>
+
+				<form class="form-group bidding-listing" action="{% url 'listing' listing.id %}" method="POST">
+					{% csrf_token %}
+					<div class="input-group-append">
+						<button name="close_listing" value="close" class="btn btn-primary" type="submit">Close my auction</button>
+					</div>
+				</form>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+	<div class="row wrap-listing-page">
+		<div class="col-12 col-lg-4">
+			<div>
+				<img class="listing-image" src="{{ listing.getImage }}"/>
+			</div>
+		</div>
+
+		<div class="col-12 col-lg-8">
+			<div class="wrap-listing-info">
+				<div>
+					<strong>Current Highest Bid:</strong>
+					<div>{{ listing.highestBid }}</div>	
+				</div>
+
+				<div class="listing-description">
+					<strong>Description:</strong>
+					<div>{{ listing.description }}</div>
+				</div>
+
+				<div class="listing-details">
+					<strong>Details:</strong>
+					<ul>
+						<li>Listed by: {{ listing.user }}</li>
+						<li>Created at: {{ listing.created_at }}</li>
+						<li>Closing date: {{ listing.closing_date }}</li>
+					</ul>
+				</div>
+
+				{% if listing.closed == 0 %}
+				<div class="bidding-form">
+					<form class="form-group bidding-form" action="{% url 'listing' listing.id %}" method="POST">
+						<div class="input-group">
+							{% csrf_token %}
+							
+							<div class="input-group-prepend">
+								<label class="input-group-text">$</label>
+							</div>
+
+							<input class="form-control currency" type="float" value="{{ listing.minBid }}" name="bid">
+							<div class="input-group-append">
+								<button class="btn btn-primary" type="submit">Bid!</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-12 col-lg-6">
+			<div class="wrap-countdown">
+				<div id="closing-date">{{ listing.closing_date|date:'Y-m-d H:i:s' }}</div>
+				<div id="is_closed">{{ listing.closed }}</div>
+				<div id="countdown">
+					<ul>
+						<li><span id="days"></span>Days</li>
+						<li><span id="hours"></span>Hours</li>
+						<li><span id="minutes"></span>Minutes</li>
+						<li><span id="seconds"></span>Seconds</li>
+					</ul>
+				</div>
+				<div id="countdown-message">
+					<span>This listing is closed</span>
+				</div>
+			</div>
+
+			<div class="table-bid-wars">
+				<table>
+					<thead>
+						<tr>
+							<th>Bid Wars</th>
+						</tr>
+					</thead>
+
+					<tbody>
+					{% if not bids %}
+					<tr><td>No one placed a bid.</td></tr>
+					{% endif %}
+
+					{% for bid in bids %}
+					<tr>
+						<td>
+							<span>{{bid.user}}</span>
+				
+							{% if bid.is_winner == 1 %}
+							won this war with a bid of
+							<span>${{bid.money}}</span>
+							<i class="fas fa-trophy"></i>
+							{% else %}	
+							offered
+							<span>${{bid.money}}</span>
+							{% endif %}
+							
+						</td>
+					</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="col-12 col-lg-6">
+			<div class="wrap-comments">
+				<span>Comments:</span>
+				<div>
+					<form class="form-group comments" action="{% url 'listing' listing.id %}" method="POST">
+						{% csrf_token %}
+						<div class="form-group">
+							<textarea class="form-control" name="comment" rows="2" placeholder="Add a comment..."></textarea>
+						</div>
+						<button class="btn btn-primary" type="submit">Post</button>
+					</form>
+				</div>
+
+				<div>
+				{% if comments %}							
+				{% for comment in comments %}
+				<div class="listing-comments">
+					<div class="comment-username">
+						{{comment.user}}
+					</div>
+			
+					<div class="comment-date">
+						{{comment.created_at}}
+					</div>					
+					<div class="comment-body">
+						{{ comment.text }}
+					</div>
+				</div>
+				{% endfor %}
+				{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

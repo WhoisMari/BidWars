@@ -1,0 +1,115 @@
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991.98px) {
+
+	.wrap-toggle{
+		position: absolute;
+	
+		right:15px;
+		top:10px;
+	
+		#menu-toggle{
+			font-size: 25px;
+		}
+	}
+
+	header{
+
+		.wrap-header{
+			min-height: 60px;
+		}
+
+		.logo-default{ 
+			font-size: 25px;
+		}
+
+		.wrap-nav {
+			position: absolute;
+			z-index: 1;
+			left: -450px;
+			top: 60px;
+			background-color: base.$light-blue;
+			border-right:2px solid #CCC;
+			justify-content: flex-end;
+
+			.wrap-menu{
+				width: 100%;
+				ul{
+					flex-direction: column;
+					li{
+						a{
+							height: 60px;
+							border-bottom: 1px solid;
+							border-radius: 0;
+							line-height: 40px;
+							margin-left: 0px;
+							padding-left: 15px;
+						}
+					}
+				}
+			}
+
+
+		}
+		.wrap-nav-show{
+			transition: 0.5s;
+			left:0;
+			flex-direction: column-reverse;
+			min-width: 300px;
+			background-color: base.$light-blue;
+			.user-options {
+				width: 100%;
+				ul li {
+					&:first-of-type{display: none;}
+				}
+			}
+		}
+		
+		.wrap-nav-hide{
+			transition: 0.5s;
+			left:-400px;
+		}
+
+	}
+
+	.wrap-filters{
+		.checkbox-filter{
+			flex-direction: row;
+			flex-wrap:wrap;
+			span{
+				margin-right: 15px;
+			}
+		}
+	} 
+
+	.wrap-listings{
+		.wrap-listing-image{
+			display: flex;
+			justify-content: center;
+			margin-bottom: 15px;
+			margin-top: 30px;
+		}
+	}
+	.listing-image{
+		max-width: 100%;
+		max-height: 600px;
+	}
+	.wrap-categories{
+		flex-wrap:wrap;
+		justify-content: normal;
+		span{
+			margin-right: 15px;
+		}
+	}
+
+	.wrap-listing-page {
+		.wrap-listing-info {
+			margin-top: 10px;
+			margin-left: 0px;
+		}
+	}
+
+	.is-owner{ 
+		margin-top: 20px; 
+		justify-content: start;
+	}
+}

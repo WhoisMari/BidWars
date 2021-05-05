@@ -1,0 +1,97 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<div class="container">
+
+	<div class="row">
+		<div class="col-12 messages">
+
+			{% if messages %}
+			{% for message in messages %}
+
+			<div class="alert alert-{{message.tags}}" role="alert">
+				{{ message }}
+			</div>
+					
+			{% endfor %}
+			{% endif %}
+
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-12">
+		{% if action == "update" %}
+			<span class="page-title">Editing: {{ listing.title }}</span>
+			<form class="form-group listing-form" action="{% url 'manage-listings' 'update' listing.id %}" method="POST">
+
+		{% else %}
+			<span class="page-title">Create a listing</span>	
+			<form class="form-group listing-form" action="{% url 'manage-listings' 'create' %}" method="POST">
+
+		{% endif %}
+				{% csrf_token %}
+				<div class="row">
+					<div class="col-12">
+						<div class="wrap-categories">
+						{% for category in categories %}
+							
+							<span>
+								<input 
+								{% if category in listing.categories.all %}checked=true{% endif %} 
+								type="checkbox" name="category[]" value="{{category.id}}"> {{category}}
+							</span>
+							
+						{% endfor %}
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-12">
+						<input class="form-control" type="text" name="title" placeholder="Title" value="{{listing.title}}">
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-12">
+						<div class="form-group">		 
+							<textarea class="form-control" name="description" rows="6" placeholder="Description">{{listing.description}}</textarea>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-12">
+						<input class="form-control" type="text" name="image" placeholder="Image URL" value="{{listing.image}}">
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-12">
+						<input class="form-control" type="datetime-local" name="closing_date" value="{{listing.closing_date|date:'Y-m-d\TH:i'}}">
+					</div>
+				</div>
+
+				{% if action == "create" %}
+				<div class="row">
+					<div class="col-12">
+						<input class="form-control currency" type="float" name="price" placeholder="Starting price" maxlength=16>
+					</div>
+				</div>
+				{% endif %}
+
+				<div class="row">
+					<div class="col-12 form-actions">
+						<button class="btn btn-primary" type="submit">Submit</button>
+						<a href="{% url 'index' %}">Cancel</a>
+					</div>
+				</div>
+			</form>
+
+			
+		</div>
+	</div>
+</div>
+{% endblock %}

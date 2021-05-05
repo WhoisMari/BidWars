@@ -1,0 +1,46 @@
+
+	<div class="user-options">	
+		{% if user.is_authenticated %}
+
+		<ul class="nav">
+			<li>			
+				<a href="{% url 'dashboard' %}">Dashboard</a>
+			</li>
+			<li>			
+				Signed in as <strong>{{ user.username }}</strong>
+			</li>
+			<li>			
+				<a href="{% url 'logout' %}">Log Out</a>
+			</li>
+		</ul>	
+			
+		{% endif %}
+	</div>
+
+	<div class="wrap-menu">
+	
+		<ul class="nav">
+			{% if user.is_authenticated %}
+
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'index' %}">Active Listings</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'watchlist' %}">Watchlist</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'manage-listings' 'create' %}">Create a listing</a>
+			</li>
+
+			{% else %}
+
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'login' %}">Log In</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'register' %}">Register</a>
+			</li>
+
+			{% endif %}
+		</ul>
+	</div>

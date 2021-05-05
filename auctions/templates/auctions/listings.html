@@ -1,0 +1,72 @@
+{% for listing in listings %}
+<div class="row">
+	<div class="col-12">
+		<div class="row wrap-listings">
+			<div class="col-12 col-lg-3 wrap-listing-image">
+				<img class="listing-image" src="{{ listing.getImage }}"/>
+			</div>
+
+			<div class="col-12 col-lg-9">
+				<a name="listing-{{ listing.id }}"></a>
+				<div class="wrap-listing">
+					<div class="listing-name">
+						<a href="{% url 'listing' listing.id %}">{{ listing.title }}</a>
+					</div>
+
+					<div>
+						{% for category in listing.categories.all %}
+						<span class="badge rounded-pill bg-primary">{{ category }}</span>
+						{% endfor %}
+					</div>
+					
+					<div>
+						<span>{{ listing.description }}</span>
+					</div>
+
+					<div class="bidding-form">
+						<form class="form-group bidding-form" action="{% url 'index' %}#listing-{{listing.id}}" method="POST">	
+							<div class="input-group">
+								{% csrf_token %}
+								<input type="hidden" name="listing_id" value="{{ listing.id }}">
+								<div class="input-group-prepend">
+									<span class="input-group-text">$</span>
+								</div>
+								<input class="form-control currency" type="float" value="{{ listing.minBid }}" name="bid">
+								<div class="input-group-append">
+									<button class="btn btn-primary" type="submit">Bid!</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="detail">Created at: {{listing.created_at}}</div>						
+				</div>
+			</div>
+
+			<div class="wrap-listing-corner">
+				<div class="listing-actions">
+					{% if listing.is_owner %}
+					<a href="{% url 'manage-listings' 'update' listing.id %}" title="Edit listing"><i class="fas fa-edit"></i></a>
+					<a onclick="return confirm('Are you sure?');" href="{% url 'manage-listings' 'delete' listing.id %}" title="Delete listing"><i class="fas fa-trash-alt"></i></a>
+					{% endif %}
+				</div>
+
+				<div class="current-price">{{ listing.highestBid }}</div>
+				
+				{% if user.is_authenticated %}
+				<div class="wrap-wl-action">
+				{% if listing.is_watched or is_watchlist %}
+					<a href="{% url 'watchlist' %}/remove/{{listing.id}}">
+						<i class="fas fa-bookmark"></i>
+					</a>
+				{% else %}
+					<a href="{% url 'watchlist' %}/add/{{listing.id}}">
+						<i class="far fa-bookmark"></i>
+					</a>
+				{% endif %}
+				</div>
+				{% endif %}
+			</div>
+		</div>		
+	</div>
+</div>	
+{% endfor %}

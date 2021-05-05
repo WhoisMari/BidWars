@@ -1,0 +1,66 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<div class="container">
+
+	<div class="row">
+		<div class="col-12 messages">
+
+			{% if messages %}
+			{% for message in messages %}
+
+			<div class="alert alert-{{message.tags}}" role="alert">
+				{{ message }}
+			</div>
+					
+			{% endfor %}
+			{% endif %}
+
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-12">
+			<span class="page-title">Active Listings</span>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-12 col-lg-3">
+			<div class="wrap-filters">
+				<form class="form-group filter-listing" action="{% url 'index' %}" method="POST">
+					{% csrf_token %}
+			
+					<input class="form-control" type="text" name="search_listing" placeholder="Search listing" value="{{search}}">
+
+					<div class="checkbox-filter">
+					
+					{% for category in categories%}
+
+					{% if category.id|slugify in selected_categories %}
+						<span>
+							<input checked=true type="checkbox" name="category[]" value="{{category.id}}"> {{category}}
+						</span>
+
+					{% else %}
+						<span>
+							<input type="checkbox" name="category[]" value="{{category.id}}"> {{category}}
+						</span>
+
+					{% endif %}
+					{% endfor %}
+					</div>
+
+					<button class="btn btn-primary" type="submit">Filter</button>
+				</form>
+			</div>
+
+		</div>
+
+		<div class="col-12 col-lg-9">
+			{% include "auctions/listings.html" %}
+		</div>
+	</div>
+</div>
+{% endblock %}

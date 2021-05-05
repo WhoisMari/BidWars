@@ -1,0 +1,58 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+	<div class="container">
+	
+		<div class="row">
+			<div class="col-12">
+				<span class="page-title">Watchlist</span>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<div class="wrap-wl-filters">
+					<form class="form-group wl-filters" action="{% url 'watchlist' %}" method="POST">
+						{% csrf_token %}
+						
+						<div class="form-check form-check-inline">
+							<input 
+								{% if selected_filter == "active" %}checked="true"{% endif %}
+								class="form-check-input" type="radio" name="wl_filter" value="active">
+							<span>Only Active Listings</span>
+						</div>
+
+						<div class="form-check form-check-inline">
+							<input 
+								{% if selected_filter == "all" %}checked="true"{% endif %}
+								class="form-check-input" type="radio" name="wl_filter" value="all">
+								<span>All Listings</span>
+						</div>
+							
+						<input class="btn btn-primary" type="submit" value="Filter"></input>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-12 messages">
+
+				{% if messages %}
+				{% for message in messages %}
+
+				<div class="alert alert-{{message.tags}}" role="alert">
+					{{ message }}
+				</div>
+					
+				{% endfor %}
+				{% endif %}
+
+			</div>
+		</div>
+
+		<div class="col-12">
+			{% include "auctions/listings.html" %}
+		</div>
+	</div>
+{% endblock %}

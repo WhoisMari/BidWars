@@ -1,0 +1,20 @@
+# Django #
+
+staticfiles/
+__pycache__
+*.pyc
+
+# Heroku #
+
+Procfile
+requirements.txt
+
+
+# Visual Studio Code #
+
+.vscode/*
+
+# Environments #
+
+.env
+!.env.example

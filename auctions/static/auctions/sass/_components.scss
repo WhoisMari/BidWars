@@ -1,0 +1,144 @@
+//container fluid//
+html, body {
+	font-size: 1rem;
+	height:100%;
+	display: flex;
+  	flex-direction: column;
+	color: base.$text-color;
+}
+a {
+	color: base.$text-color;
+	text-decoration: auto;
+	&:hover {color: base.$text-color;}
+}
+// navbar //
+header {
+	background-color:base.$light-blue;
+	border-bottom:2px solid #CCC;
+	margin-bottom: 20px;
+
+	.wrap-header{
+		display: flex;
+		justify-content: space-between;
+		min-height: 100px;
+	}
+
+	.logo-default {
+		display: flex;
+		align-items: center;
+		height: 100%;
+		font-size: 50px;
+		font-weight: bold;
+		font-family: 'Girassol', cursive;
+		color: base.$text-color;
+		a{
+			position: absolute;
+			#left-hammer{
+				position: relative;
+				transform: rotateY(190deg);
+				font-size: 50px;
+				left: 18px;
+			}
+			#right-hammer{
+				position: relative;
+				font-size: 50px;
+				left: -12px;
+			}
+		}
+	}
+	.wrap-nav {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		height: 100%;
+
+		justify-content: space-between;
+
+		.user-options {
+			color: base.$text-color;
+			a {color: base.$text-color;}
+			margin-top: 10px;
+			ul{
+				li{
+					padding: 0px 15px;
+					border-right: 1px solid #CCC;
+					&:last-of-type{ border-right: none; padding-right: 0;}
+				}
+			}
+		}
+
+		.wrap-menu ul{
+			a {
+				background-color:base.$text-color;
+				margin-left: 10px;
+				color: #fff;
+				border-color: base.$text-color;
+				border-top-right-radius: 8px;
+				&:hover {
+					background-color: #fff;
+					color: base.$text-color;
+				}
+				&:active {
+					background-color: #fff;
+				}
+			}
+		}
+	}
+
+
+}
+//page's title//
+.page-title {
+	display: flex;
+	font-size: 26px;
+}
+//buttoms//
+.btn-primary {
+	color: #fff;
+	border: 1px solid base.$btn-color;
+	background-color: base.$btn-color;
+	border-radius: 4px;
+	&:hover {
+
+		border: 1px solid base.$btn-color;
+		background-color: lighten(base.$btn-color,10%);
+	}
+	&:active, &:focus {
+		color: base.$btn-color;
+		background-color: base.$light-blue;
+		border-color: 1px solid base.$btn-color;
+	}
+
+}
+// categories badge //
+.badge {
+	background-color: base.$cyan !important;
+	color: #fff;
+	margin: 0 10px 10px 0;
+	padding: 5px 10px;
+	font-size: 12px;
+}
+.fa-trophy {
+	color: #b58e20;
+}
+.fa-trash-alt {
+	color: #da6f6f
+}
+.fa-edit {
+	color: #4eb1ea
+}
+.content{
+	flex: 1 0 auto;
+}
+//footer//
+footer {
+	display: flex;
+    justify-content: center;
+	align-items: center;
+	background-color:base.$light-blue;
+	border-top: 2px solid #CCC;
+	margin-top: 20px;
+	padding: 10px;
+	height: 60px;
+	flex-shrink: 0;
+}
