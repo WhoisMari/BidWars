@@ -1,8 +1,8 @@
 # Django #
 
-staticfiles/
-__pycache__
-*.pyc
+#staticfiles/
+#__pycache__
+#*.pyc
 
 # Heroku #
 
@@ -12,9 +12,9 @@ __pycache__
 
 # Visual Studio Code #
 
-.vscode/*
+#.vscode/*
 
 # Environments #
 
-.env
-!.env.example
+#.env
+#!.env.example
