@@ -21,7 +21,6 @@ $(function() {
 	
 
 	let closing_date = document.getElementById("closing-date")
-	console.log(closing_date);
 	if(closing_date != null){
 
 		let start_timer = checkListingStatus();
@@ -34,6 +33,7 @@ $(function() {
 	function checkListingStatus(){
 
 		let is_closed = document.getElementById("is_closed").innerText;
+		console.log(is_closed);
 		if( is_closed == 'True')
 			return false;
 
