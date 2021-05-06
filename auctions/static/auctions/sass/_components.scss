@@ -24,28 +24,35 @@ header {
 	}
 
 	.logo-default {
+		position: relative;
+
 		display: flex;
 		align-items: center;
 		height: 100%;
+
 		font-size: 50px;
 		font-weight: bold;
 		font-family: 'Girassol', cursive;
 		color: base.$text-color;
-		a{
+
+		.hammers{
 			position: absolute;
+			display: flex;
+			align-items: center;
+			height: 100%;
+			width:70px;
+			svg{ position: absolute;}
 			#left-hammer{
-				position: relative;
 				transform: rotateY(190deg);
-				font-size: 50px;
-				left: 18px;
+				left: 0px;
 			}
 			#right-hammer{
-				position: relative;
-				font-size: 50px;
-				left: -12px;
+				right: 0px;
 			}
 		}
+		span{ margin-left:75px; }
 	}
+
 	.wrap-nav {
 		display: flex;
 		flex-direction: column;

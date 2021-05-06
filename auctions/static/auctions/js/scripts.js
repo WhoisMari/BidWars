@@ -21,22 +21,23 @@ $(function() {
 	
 
 	let closing_date = document.getElementById("closing-date")
+	console.log(closing_date);
 	if(closing_date != null){
 
-		closing_date = closing_date.innerText;
-		let is_closed = document.getElementById("is_closed").innerText;
+		let start_timer = checkListingStatus();
+		if(start_timer)
+			timer = setInterval(checkListingStatus, 800);
 
-		countDown = new Date(closing_date).getTime();
-		console.log(is_closed);
-		if(is_closed == 'False')
-			timer = setInterval(checkListingStatus, 1);
-
-		checkListingStatus();
 	}
 
 
 	function checkListingStatus(){
 
+		let is_closed = document.getElementById("is_closed").innerText;
+		if( is_closed == 'True')
+			return false;
+
+		countDown = new Date(closing_date.innerText).getTime();
 		const second = 1000,
 		minute = second * 60,
 		hour = minute * 60,
@@ -44,31 +45,33 @@ $(function() {
 
 		let now = new Date().getTime();
 		let	distance = countDown - now;
+		let countdown = document.getElementById("countdown");
+		let content = document.getElementById("countdown-message");
 	
-		document.getElementById("days").innerText = Math.floor(distance / (day)),
-		document.getElementById("hours").innerText = Math.floor((distance % (day)) / (hour)),
-		document.getElementById("minutes").innerText = Math.floor((distance % (hour)) / (minute)),
-		document.getElementById("seconds").innerText = Math.floor((distance % (minute)) / second);
-
-		let is_closed = document.getElementById("is_closed")
-		if(is_closed != null && is_closed.innerText == 'True')
-			distance = -1;
-
-
-		if (distance < 0) {
-
-			let countdown = document.getElementById("countdown"),
-				content = document.getElementById("countdown-message");
+		if (distance < 0){
 
 			countdown.style.display = "none";
 			content.style.display = "flex";
+			document.getElementById("is_closed").innerText = 'True';
 
 			if(typeof timer !== 'undefined'){
 				clearInterval(timer);
 				window.location.reload();	
 			}
 			
+			return false;
 		}
+
+		countdown.style.display = "flex";
+		content.style.display = "none";
+
+		document.getElementById("days").innerText = Math.floor(distance / (day)),
+		document.getElementById("hours").innerText = Math.floor((distance % (day)) / (hour)),
+		document.getElementById("minutes").innerText = Math.floor((distance % (hour)) / (minute)),
+		document.getElementById("seconds").innerText = Math.floor((distance % (minute)) / second);
+
+		return true;
+
 	}
 
 });

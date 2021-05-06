@@ -18,13 +18,15 @@
 				<div class="row">
 					<div class="col-12 wrap-header">
 
-						<div class="logo-default">	
-							<a href="{% url 'index' %}">
-								<i class="fas fa-gavel" id="left-hammer"></i>
-								<i class="fas fa-gavel" id="right-hammer"></i>
-								BidWars
-							</a>
-						</div>
+						<a href="{% url 'index' %}">
+							<div class="logo-default">
+								<div class="hammers">
+									<i class="fas fa-gavel" id="left-hammer"></i>
+									<i class="fas fa-gavel" id="right-hammer"></i>
+								</div>
+								<span>BidWars</span>
+							</div>
+						</a>
 
 						<div class="wrap-nav">
 							{% include "auctions/nav.html" %}
