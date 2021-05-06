@@ -17,13 +17,12 @@ def register(request):
 	if request.method == "POST":
 		username = request.POST["username"]
 		email = request.POST["email"]
-		# Ensure password matches confirmation
 		password = request.POST["password"]
 		confirmation = request.POST["confirmation"]
 		if password != confirmation:
 			messages.warning(request, "Passwords must match")
 			return render(request, "auctions/register.html")
-		# Attempt to create new user
+
 		try:
 			user = User.objects.create_user(username, email, password)
 			user.save()
@@ -41,12 +40,10 @@ def register(request):
 
 def login_view(request):
 	if request.method == "POST":
-		# Attempt to sign user in
 		username = request.POST["username"]
 		password = request.POST["password"]
 		user = authenticate(request, username=username, password=password)
 
-		# Check if authentication successful
 		if user is not None:
 			login(request, user)
 			messages.info(request, "Welcome back!")

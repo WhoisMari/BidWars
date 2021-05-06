@@ -1,20 +1,19 @@
 # Django #
 
-#staticfiles/
-#__pycache__
-#*.pyc
+staticfiles/
+__pycache__
+*.pyc
 
 # Heroku #
 
-#Procfile
-#requirements.txt
+Procfile
+requirements.txt
 
 
 # Visual Studio Code #
 
-#.vscode/*
+.vscode/*
 
 # Environments #
 
-#.env
-#!.env.example
+.env
