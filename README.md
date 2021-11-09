@@ -18,7 +18,7 @@ In the end, I got a little bit too excited and decided to add some other feature
  
  - Filters:
 	 - On the Active Listings page, users can filter their results by categories and keywords.
-	 -On the Watchlist page, users can filter to see only the active listings or all of them.
+	 - On the Watchlist page, users can filter to see only the active listings or all of them.
 
  - Listings:
 	 - All Listings need a “closing date”, which the users may edit later. 

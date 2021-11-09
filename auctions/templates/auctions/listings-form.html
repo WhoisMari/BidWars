@@ -39,7 +39,7 @@
 							
 							<span>
 								<input 
-								{% if category in listing.categories.all %}checked=true{% endif %} 
+								{% if category in listing.categories.all %} checked=true {% endif %} 
 								type="checkbox" name="category[]" value="{{category.id}}"> {{category}}
 							</span>
 							
