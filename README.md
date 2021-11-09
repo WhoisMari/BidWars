@@ -26,3 +26,28 @@ In the end, I got a little bit too excited and decided to add some other feature
 	 - There is a table called “Bid Wars”, which shows every bid that has been given to that specific listing and who is winning/won.
 
 A demo of my take on this project is available at [BidWars](https://bidwars.whoismari.dev/)
+
+# Installation
+
+Requirements:
+- Django
+- Python
+
+```python
+# Create a virtualenv (optional)
+$ python3 -m venv myvirtualenv
+
+# Install dependencies
+$ pip install -r requirements.txt
+
+```
+
+Create your own .env file on the root directory (commerce):
+- You should generate a SECRET_KEY. It can be done [here](https://djecrety.ir/).
+- The DATABASE_URL section can be configured using the following:
+	```
+	DATABASE_URL={'ENGINE':'django.db.backends.sqlite3', 'NAME': os.path.join(BASE_DIR, 'db.sqlite3')}
+	```
+- Add your own ALLOWED_HOSTS configuration and **you're good to go!**
+
+
